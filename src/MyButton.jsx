@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Hoc from './Hoc'
+
+@Hoc
 class MyButton extends Component {
     render() {
         return (
@@ -10,4 +12,4 @@ class MyButton extends Component {
     }
 }
 
-export default Hoc(MyButton);
+export default MyButton;

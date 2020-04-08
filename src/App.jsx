@@ -4,6 +4,7 @@ import './css/index.less'
 import Hoc from './Hoc'
 import MyButton from "./MyButton";
 
+@Hoc
 class App extends Component {
     render() {
         return (
@@ -15,4 +16,4 @@ class App extends Component {
     }
 }
 
-export default Hoc(App);
+export default App;
