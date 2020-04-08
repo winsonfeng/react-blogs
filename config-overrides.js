@@ -6,7 +6,8 @@
 const {
     override,
     addLessLoader,/*引入less方法*/
-    fixBabelImports/*按需加载antd*/
+    fixBabelImports,/*按需加载antd*/
+    addDecoratorsLegacy
 } = require('customize-cra')
 
 const modifyVars = require('./modifyVars')
@@ -18,6 +19,7 @@ module.exports = override(
         libraryDirectory: 'es',
         style: true,
     }),
+    addDecoratorsLegacy(),
     //引入less
     addLessLoader({
         javascriptEnabled: true,
