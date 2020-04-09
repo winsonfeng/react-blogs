@@ -9,7 +9,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                hello world this is App
+                测试版本v1.1
             </div>
         );
     }
