@@ -8,11 +8,10 @@ const Loadable = ({loader, loading: Loading}) => {
             LoadedComponent: null
         }
         componentDidMount() {
-            loader.then(resq => {
+            loader().then(resq => {
                 timer = setTimeout(() => {
                     this.setState({LoadedComponent: resq.default})
                 }, 200)
-
             })
         }
          componentWillUnmount() {
