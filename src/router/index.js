@@ -7,6 +7,7 @@ import {
     ArticleList
 }from '../views'
 
+
 export const mainRouter =[{
     pathname:'/login',
     component:Login
@@ -14,6 +15,7 @@ export const mainRouter =[{
     pathname: '/404',
     component: NotFound
 }]
+
 
 export const adminRouter =[{
     pathname:'/admin/dashboard',
