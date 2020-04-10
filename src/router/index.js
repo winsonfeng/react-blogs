@@ -17,7 +17,7 @@ export const mainRouter =[{
 
 export const adminRouter =[{
     pathname:'/admin/dashboard',
-    component:Dashboard
+    component:Dashboard,
 },{
     pathname:'/admin/Article',
     component:Article

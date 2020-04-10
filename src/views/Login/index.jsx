@@ -4,7 +4,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                login
+                登录页
             </div>
         );
     }
