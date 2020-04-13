@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import {Layout, Menu} from 'antd';
-import {DashboardOutlined,ProjectOutlined } from '@ant-design/icons';
+import Icon, {DashboardOutlined, ProjectOutlined} from '@ant-design/icons';
 import logo from './logo-512.png'
 import './frame.less'
 import {adminRouter} from '../../router'
-import {Link} from "react-router-dom";
+import {Link,withRouter} from "react-router-dom";
+const { SubMenu } = Menu;
 
-const {Header, Content, Footer, Sider,Icon} = Layout;
 
+const {Header, Content, Footer, Sider} = Layout;
 
+@withRouter
 class Frame extends Component {
     state = {
         collapsed: false,
+        routePath:[]
     };
 
     toggle = () => {
@@ -21,7 +24,7 @@ class Frame extends Component {
     };
 
     render() {
-        console.log(this.props.children)
+        // console.log(this)
         return (
             <Layout>
                 <Sider
@@ -37,12 +40,29 @@ class Frame extends Component {
                     <div className="logoName">
                         <img src={logo} alt="sam"/>
                     </div>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+                    <Menu
+                        theme="dark"
+                        mode="inline"
+                        selectedKeys={this.props.location.pathname}
+                        onClick={ ({item,key,keyPath,domEvent}) =>{
+                        }}
+                    >
                         {adminRouter.map(childComponent => {
+                            if (childComponent.children){
+                                return <SubMenu title={childComponent.title} key={childComponent.pathname}>
+                                    {childComponent.children.map((item)=>{
+                                        return <Menu.Item key={item.pathname}>
+                                            <Icon component={item.icon}/>
+                                            <Link className="nav-text" to={item.pathname}>{item.title}</Link>
+                                        </Menu.Item>
+                                    })}
+                                </SubMenu>
+                            }
                             return <Menu.Item key={childComponent.pathname}>
-                                <ProjectOutlined />
+                                <Icon component={childComponent.icon}/>
                                 <Link className="nav-text" to={childComponent.pathname}>{childComponent.title}</Link>
                             </Menu.Item>
+
                         })}
                     </Menu>
                 </Sider>
