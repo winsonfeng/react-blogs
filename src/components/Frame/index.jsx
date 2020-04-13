@@ -4,8 +4,9 @@ import Icon, {DashboardOutlined, ProjectOutlined} from '@ant-design/icons';
 import logo from './logo-512.png'
 import './frame.less'
 import {adminRouter} from '../../router'
-import {Link,withRouter} from "react-router-dom";
-const { SubMenu } = Menu;
+import {Link, withRouter} from "react-router-dom";
+
+const {SubMenu} = Menu;
 
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -14,7 +15,7 @@ const {Header, Content, Footer, Sider} = Layout;
 class Frame extends Component {
     state = {
         collapsed: false,
-        routePath:[]
+        routePath: []
     };
 
     toggle = () => {
@@ -22,6 +23,26 @@ class Frame extends Component {
             collapsed: !this.state.collapsed,
         });
     };
+    renderMenu = (data) => {
+        let container = null
+        return data.map(childComponent => {
+            //如果存在二级菜单
+            if (childComponent.children) {
+                container = <SubMenu title={
+                    <span>
+                        <Icon component={childComponent.icon}/>
+                        {childComponent.title}
+                    </span>
+                } key={childComponent.pathname}>
+                    {this.renderMenu(childComponent.children)}
+                </SubMenu>
+            } else container = <Menu.Item key={childComponent.pathname}>
+                <Icon component={childComponent.icon}/>
+                <Link className="nav-text" to={childComponent.pathname}>{childComponent.title}</Link>
+            </Menu.Item>
+            return container
+        })
+    }
 
     render() {
         // console.log(this)
@@ -44,26 +65,11 @@ class Frame extends Component {
                         theme="dark"
                         mode="inline"
                         selectedKeys={this.props.location.pathname}
-                        onClick={ ({item,key,keyPath,domEvent}) =>{
+                        onClick={({item, key, keyPath, domEvent}) => {
                         }}
                     >
-                        {adminRouter.map(childComponent => {
-                            if (childComponent.children){
-                                return <SubMenu title={childComponent.title} key={childComponent.pathname}>
-                                    {childComponent.children.map((item)=>{
-                                        return <Menu.Item key={item.pathname}>
-                                            <Icon component={item.icon}/>
-                                            <Link className="nav-text" to={item.pathname}>{item.title}</Link>
-                                        </Menu.Item>
-                                    })}
-                                </SubMenu>
-                            }
-                            return <Menu.Item key={childComponent.pathname}>
-                                <Icon component={childComponent.icon}/>
-                                <Link className="nav-text" to={childComponent.pathname}>{childComponent.title}</Link>
-                            </Menu.Item>
-
-                        })}
+                        {/*动态生成导航*/}
+                        {this.renderMenu(adminRouter)}
                     </Menu>
                 </Sider>
                 <Layout>
