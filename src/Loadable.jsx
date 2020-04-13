@@ -25,3 +25,7 @@ const Loadable = ({loader, loading: Loading}) => {
     }
 }
 export default Loadable;
+
+
+
+

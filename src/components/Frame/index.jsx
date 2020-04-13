@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Layout, Menu} from 'antd';
-import Icon, {DashboardOutlined, ProjectOutlined} from '@ant-design/icons';
+import {Button, Card, Layout, Menu} from 'antd';
+import Icon from '@ant-design/icons';
 import logo from './logo-512.png'
 import './frame.less'
 import {adminRouter} from '../../router'
@@ -23,6 +23,8 @@ class Frame extends Component {
             collapsed: !this.state.collapsed,
         });
     };
+
+
     renderMenu = (data) => {
         let container = null
         return data.map(childComponent => {
@@ -30,10 +32,12 @@ class Frame extends Component {
             if (childComponent.children) {
                 container = <SubMenu title={
                     <span>
+                        {/*二级菜单icon写法*/}
                         <Icon component={childComponent.icon}/>
                         {childComponent.title}
                     </span>
                 } key={childComponent.pathname}>
+                    {/*递归调用*/}
                     {this.renderMenu(childComponent.children)}
                 </SubMenu>
             } else container = <Menu.Item key={childComponent.pathname}>
@@ -45,7 +49,7 @@ class Frame extends Component {
     }
 
     render() {
-        // console.log(this)
+        console.log(this.props.children)
         return (
             <Layout>
                 <Sider
@@ -75,8 +79,11 @@ class Frame extends Component {
                 <Layout>
                     <Header className="site-layout-sub-header-background" style={{padding: 0}}/>
                     <Content style={{margin: '24px 16px 0'}}>
-                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
-                            {this.props.children}
+                        <div className="site-layout-background" style={{minHeight: 360}}>
+                            <Card title='标题' style={{border: 0}} extra={<Button>More</Button>}>
+                                {this.props.children}
+                            </Card>
+
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>©2020 Created by Winson</Footer>

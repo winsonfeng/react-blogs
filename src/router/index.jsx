@@ -8,7 +8,7 @@ import {
     ArticleList
 } from '../views'
 
-import Icon, {DashboardOutlined, ProjectOutlined} from '@ant-design/icons';
+import {DashboardOutlined, ProjectOutlined} from '@ant-design/icons';
 
 export const mainRouter = [{
     pathname: '/login',

@@ -28,7 +28,7 @@ const ArticleEdit = Loadable({
     loading:Loading
 })
 const ArticleList = Loadable({
-    loader:()=>import('./Article'),
+    loader:()=>import('./Article/ArticleDetail'),
     loading:Loading
 })
 export {
