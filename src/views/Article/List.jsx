@@ -39,7 +39,7 @@ class List extends Component {
                     key: '3',
                     name: 'Joe Black',
                     age: 32,
-                    address: 'Sidney No. 1 Lake Park',
+                    address: 'Sidney No. 1 Lake Park1',
                     tags: ['cool', 'teacher'],
                 }],
             total: 0,
