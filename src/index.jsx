@@ -6,7 +6,6 @@ import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 //antd国际化
 import zhCN from 'antd/es/locale/zh_CN';
 import { ConfigProvider } from 'antd';
-
 render(
     <Router>
         <Switch>

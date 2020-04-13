@@ -49,7 +49,7 @@ class Frame extends Component {
     }
 
     render() {
-        console.log(this.props.children)
+        // console.log(this.props.children)
         return (
             <Layout>
                 <Sider
