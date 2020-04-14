@@ -2,8 +2,14 @@ import React, {Component} from 'react';
 import {Table, Tag} from 'antd';
 import {getArticle} from '../../Axios'
 
-
-const data = [];
+//标题重命名
+const renameTitle = {
+    id:'id',
+    title: '标题',
+    author: '作者',
+    creatAt: '创作时间',
+    amount: '阅读量'
+}
 
 class List extends Component {
     constructor() {
@@ -21,50 +27,52 @@ class List extends Component {
                     key: 'title'
                 }
             ],
-            data: [{
-                key: '1',
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                tags: ['nice', 'developer'],
-            },
-                {
-                    key: '2',
-                    name: 'Jim Green',
-                    age: 42,
-                    address: 'London No. 1 Lake Park',
-                    tags: ['loser'],
-                },
-                {
-                    key: '3',
-                    name: 'Joe Black',
-                    age: 32,
-                    address: 'Sidney No. 1 Lake Park1',
-                    tags: ['cool', 'teacher'],
-                }],
+            dataSource: [],
             total: 0,
-            pageSize:5,
-            loadingFlag: true
+            pageSize: 5,
+            loadingFlag: true,
+            newColumns: []
         }
 
     }
 
+    creatColumnsKeys = (columnsKeys) => {
+        return columnsKeys.map(item => {
+            return {
+                title: renameTitle[item],
+                dataIndex: item,
+                key: item
+            }
+        })
+    }
 
-    componentDidMount() {
+    getData = () => {
         getArticle().then((resp) => {
-            console.log(resp)
-
-            this.setState({total: resp.data.total,data: resp.data.list,loadingFlag :false})
+            const columnsKeys = Object.keys(resp.data.list[0]);
+            const newColumns = this.creatColumnsKeys(columnsKeys)
+            this.setState({
+                total: resp.data.total,
+                dataSource: resp.data.list,
+                newColumns,
+                loadingFlag: false
+            })
 
         })
     }
 
+    componentDidMount() {
+        this.getData()
+    }
+
     render() {
+        console.log(this.state)
+
         return (
             <div>
                 <Table
-                    columns={this.state.columns}
-                    dataSource={this.state.data}
+                    rowKey = { record => record.id}/*解决key报错问题*/
+                    columns={this.state.newColumns}
+                    dataSource={this.state.dataSource}
                     loading={this.state.loadingFlag}
                     pagination={{
                         total: this.state.total
